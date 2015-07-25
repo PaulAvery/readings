@@ -1,6 +1,8 @@
 # readings
 This application provides a way, to organize a set of documents into categories and present them via a web interface. It uses a git repository as its data store (articles are markdown or html files), to allow collaborative work on e.g. project documentation etc.
 
+![Screenshot](scrot.png)
+
 To get started, simply run the program as `readings`.
 By default, the application assumes its working directory to be the underlying git repository (non-bare). You may specify a different directory by providing a single parameter:
 

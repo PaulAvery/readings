@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "bin": "lib/server.js",
   "preferGlobal": true,
+  "description": "An application to present articles stored in a git repo",
   "repository": {
     "type": "git",
     "url": "https://github.com/PaulAvery/readings.git"
