@@ -1,0 +1,67 @@
+/* Remove ugly gap between input and article */
+.extract-input .mdl-cell {
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+.extract-input .mdl-textfield {
+	margin: 0 20px;
+	width: calc(100% - 40px);
+}
+
+.extract-article {
+	padding-top: 0px;
+}
+
+.extract-article .article-content {
+	margin-top: 0px;
+}
+
+.extract-article .mdl-cell {
+	margin-top: 0px;
+}
+
+/* Show next/prev fabs on large screens */
+.extract-article .markdown-body {
+	overflow: visible;
+}
+
+/* Align left fab to the bottom if we have a small screen */
+.extract-article .previous-preview {
+	position: relative;
+	float: left;
+	left: -84px;
+}
+
+.mdl-layout.is-small-screen .extract-article .previous-preview {
+	left: auto;
+	bottom: 40px;
+	right: 192px;
+	z-index: 999;
+	position: fixed;
+}
+
+/* Align right fab to the bottom if we have a small screen */
+.extract-article .next-preview {
+	position: relative;
+	float: right;
+	right: -84px;
+}
+
+.mdl-layout.is-small-screen .extract-article .next-preview {
+	bottom: 40px;
+	right: 116px;
+	z-index: 999;
+	position: fixed;
+}
+
+/* Actually get the next thing to behave and not be misaligned */
+.extract-article .next-preview + * {
+	position: relative;
+	clear: both;
+	top: -56px;
+}
+
+.mdl-layout.is-small-screen .next-preview + * {
+	top: auto;
+}

@@ -1,0 +1,89 @@
+/* Proper sizes for the title */
+.mdl-layout-title {
+	font-size: 34px;
+}
+.mdl-layout.is-small-screen .mdl-layout-title {
+	font-size: 20px;
+}
+
+/* Hide active category on large screen */
+.activecategory {
+	display: none;
+}
+.mdl-layout.is-small-screen .activecategory {
+	display: inline;
+}
+
+/* Only show drawer button on small screens */
+.mdl-layout__drawer-button {
+	display: none;
+}
+.mdl-layout.is-small-screen .mdl-layout__drawer-button {
+	display: inline-block;
+}
+
+/* Proper padding for the header */
+.mdl-layout__header-row {
+	padding-right: 80px;
+}
+
+/* Add an active style for the header links */
+.mdl-layout__header-row .mdl-navigation__link.is-active {
+	border-bottom: 3px solid;
+	line-height: 58px;
+	margin-top: 3px;
+}
+
+/* Position the fab on the top or bottom right for large and small screens respectively */
+#add {
+	margin-right: 0;
+	top: 158px;
+	z-index: 999;
+}
+.mdl-layout.is-small-screen	#add {
+	position: fixed;
+	top: auto;
+	bottom: 40px;
+	right: 40px;
+}
+
+/* Animate the import bar when shown */
+#import {
+	overflow: hidden;
+	transition: height 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+}
+#import.collapsed {
+	height: 0px;
+}
+.mdl-layout.is-small-screen #import {
+	padding: 0 16px;
+}
+
+/* Right padding needed because of the fab, wrapper needed, because of mdls highlighting */
+#import .inputwrapper {
+	width: 100%;
+	padding-right: 136px;
+	box-sizing: border-box;
+}
+.mdl-layout.is-small-screen #import .inputwrapper {
+	padding-right: 0px;
+}
+
+/* The textfield should be full width */
+#import .mdl-textfield {
+	width: 100%;
+}
+
+/* Make the textfield legible on the blue background */
+#import label {
+	color: #CCC;
+}
+#import label:after {
+	background-color: #CCC;
+}
+
+/* Make loading bar wide */
+#loading {
+	margin: 100px auto;
+	width: 90%;
+}

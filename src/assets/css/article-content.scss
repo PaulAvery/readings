@@ -1,0 +1,55 @@
+.article-content {
+	padding: 56px 56px;
+	margin-bottom: 40px;
+	margin-top: 40px;
+	border-radius: 2px;
+}
+
+.mdl-layout.is-small-screen .article-content {
+	padding: 35px 28px;
+	margin-top: 16px;
+	margin-bottom: 16px;
+}
+
+/* Helvetica is a lot more readable for long texts than Roboto (imho) */
+.article-content *{
+	max-width: 1600px;
+	font-family: 'Helvetica','Arial', sans-serif;
+}
+
+.article-content h3 {
+	margin-top: 40px;
+	margin-bottom: 2px;
+}
+
+.article-content .author {
+	text-decoration: none;
+}
+
+.article-content .crumb {
+	text-decoration: none;
+}
+
+.article-content .crumb:after {
+	content: ' > '
+}
+
+.article-content .crumb:last-child:after {
+	content: none;
+}
+
+.article-content .tags {
+	margin-top: 36px;
+}
+
+.article-content .tags .tag {
+	text-decoration: none;
+	border-radius: 6px;
+	padding: 6px 12px;
+	margin-right: 10px;
+}
+
+/* Keep our icons in the markdown body */
+.markdown-body .material-icons {
+  font-family: "Material Icons"
+}
