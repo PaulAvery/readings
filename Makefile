@@ -1,57 +1,76 @@
 BIN = ./node_modules/.bin
-SRC = $(wildcard src/*.js) $(wildcard src/*/*.js) $(wildcard src/*/*/*.js)
-LIB = $(SRC:src/%.js=lib/%.js)
-SRCSASS = $(wildcard src/assets/css/*.sass) $(wildcard src/assets/css/*.scss)
+
+SRCJS = $(wildcard src/*.js) $(wildcard src/*/*.js) $(wildcard src/*/*/*.js)
+LIBJS = $(SRCJS:src/%.js=lib/%.js)
+
+SRCSASS = $(wildcard src/assets/css/*.scss)
+ENTRYSASS = src/assets/readings.scss
+
 SRCASSETS = $(wildcard src/assets/static/*)
 LIBASSETS = $(SRCASSETS:src/assets/static/%=lib/assets/static/%)
 
-build: babel static browserify sass
-	@cp node_modules/material-design-lite/material.min.js lib/assets/material.js
+build: $(LIBJS) $(LIBASSETS) lib/assets/readings.css lib/assets/readings.js lib/assets/material.js
 
-babel: $(LIB)
-static: $(LIBASSETS)
+# Rebuilding breaks permissions if application is linked via npm-link
+lib/server.js: src/server.js
+	@mkdir -p lib/assets
+	@$(BIN)/babel $< --out-file $@
+	@chmod +x $@
 
-sass: lib/assets/readings.css
-browserify: lib/assets/readings.js
-
-lib/assets/readings.js: $(LIB)
+# Compile all sass files into a single file for the client
+lib/assets/readings.css: $(SRCSASS) $(ENTRYSASS)
 	@mkdir -p $(@D)
+	@$(BIN)/node-sass $(ENTRYSASS) $@
+
+# Compile the assets into a single file for the client
+lib/assets/readings.js: $(LIBJS)
+	@mkdir -p lib/assets
 	@$(BIN)/browserify lib/client.js --outfile $@
 
-lib/assets/readings.css: $(SRCSASS) src/assets/readings.scss
-	@mkdir -p $(@D)
-	@$(BIN)/node-sass src/assets/readings.scss $@
-
-lib/assets/%: src/assets/%
+# Copy over the material.min.js file so the client can grab it
+lib/assets/material.js: node_modules/material-design-lite/material.min.js
 	@mkdir -p $(@D)
 	@cp $< $@
 
+# Copy over all static assets
+lib/assets/static/%: src/assets/static/%
+	@mkdir -p $(@D)
+	@cp $< $@
+
+# Run all js files through babel to compile into ES5 code
 lib/%.js: src/%.js
 	@mkdir -p $(@D)
 	@$(BIN)/babel $< --out-file $@
 
+# Cleanup
 clean:
 	@rm -rf lib
+	@rm -rf example
 
+# Lint all the source code
 lint:
 	@$(BIN)/eslint src
 
+# Rebuild on change
 watch:
 	@rerun --dir src make -- --no-print-directory run
 
+# Create an example directory and run inside of it
 run: build
 	@git init example
 	@node lib/server.js example
 
+# Bump the version in package.json and add a commit for it
 release-major: build lint
-	@$(BIN)/bump --major
+	@npm version major
 
 release-minor: build lint
-	@$(BIN)/bump --minor
+	@npm version minor
 
 release-patch: build lint
-	@$(BIN)/bump --patch
+	@npm version patch
 
+# Publish to git and npm
 publish:
-	@npm publish
 	@git push --tags origin HEAD:master
+	@npm publish
