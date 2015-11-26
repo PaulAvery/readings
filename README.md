@@ -1,5 +1,5 @@
 # readings
-This application provides a way, to organize a set of documents into categories and present them via a web interface. It uses a git repository as its data store (articles are markdown or html files), to allow collaborative work on e.g. project documentation etc.
+This application provides a way to organize a set of documents into categories and present them via a web interface. It uses a git repository as its data store (articles are markdown or html files), to allow collaborative work on things like project documentation, internal articles etc.
 
 ![Screenshot](scrot.png)
 
@@ -13,15 +13,15 @@ readings /srv/documentation
 The default port is 3000 but can be overriden by setting the `PORT` environment variable.
 
 ## The git repository
-Your git repository should contain two top-level directories, `articles` and `tags`. Within the articles directory, you should create an `imported` folder, into which any articles added via the API (or the webinterface) will be placed. All data will be reloaded once the git repository changes, so it might be a good idea to run this on your server and have your users/maintainers push their changes to the server.
+Your git repository will contain two top-level directories, `articles` and `tags`. Within the articles directory, an `imported` folder will be created, into which any articles added via the API (or the webinterface) will be placed. It is advised to place the repository on a server and have your maintainers/collaborators push to it instead of making direct changes.
 
 ### Categories
-The directories within the articles folder will be treated as top-level categories, accessible via the main navigation of the frontend. Deeper nesting is possible and encouraged though.
+The directories within the articles folder will be treated as top-level categories, accessible via the main navigation of the frontend. Deeper nesting is possible and will be available as subcategories.
 
 ### Articles
 An article is either an html or a markdown document located somewhere within the articles folder. Markdown files will be rendered to html when shown and html documents will be shown as-is. HTML will **not** be sanitized before serving, though we do sanitize anything imported via the API.
 The file name provides the articles title and the person originally adding the file is determined by the author of the files first commit.
-If you copied the article from somewhere on the web it is recommended, to manually set the authors name when originally committing. It is also advised to provide the source URL as the authors email address.
+If you copied the article from somewhere on the web it is recommended to manually set the authors name on first commit. It is also advised to provide the source URL as the authors email address.
 
 ### Tags
 You may symlink any article into an arbitrary number of tag folders. Tags can currently not be browsed directly via the web interface.
@@ -162,6 +162,6 @@ Adds an article to the git repository. The following querystring parameters shou
 `title`: The title of the article (and therefore file)
 `author`: The name of the original author
 
-The body of the request will be interpreted as html and sanitized in the same way as the fragments returned by `/api/extract`. A file will then be written to disk, corresponding to the title provided (will be sanitized first) and a new commit will be created, adding the file with the provided author set as the committing user.
+The body of the request will be interpreted as html and sanitized in the same way as the fragments returned by `/api/extract`. A file will then be written to disk, corresponding to the title provided and a new commit will be created.
 
 The body of the response will be exclusively comprised of the name of the added article (e.g. `/imported/Some%20Title.html`).
