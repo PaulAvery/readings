@@ -10,8 +10,8 @@ export function view(ctrl, {crumbs, title, author, tags}, ...children) {
 		</div>
 		<h3>{title}</h3>
 		<a class="author mdl-color-text--grey-500" href={authorLink} config={m.route}>{`${author.name} <${author.mail || author.url}>`}</a>
-		<div class="markdown-body">
-			{children.map(c => typeof c === 'string' ? m.trust(c) : c)}
+		<div class="article-body">
+			{children}
 		</div>
 		<div class="tags">
 			{tags.map(t => <a class="tag mdl-color-text--white mdl-shadow--2dp" href={`/tag/${t.name}`} style={{backgroundColor: t.color}}>#{t.name}</a>)}

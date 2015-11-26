@@ -21,16 +21,15 @@
 	margin-top: 0px;
 }
 
-/* Show next/prev fabs on large screens */
-.extract-article .markdown-body {
-	overflow: visible;
-}
-
 /* Align left fab to the bottom if we have a small screen */
 .extract-article .previous-preview {
 	position: relative;
 	float: left;
 	left: -84px;
+}
+
+.extract-article .article-html {
+	margin-bottom: -42px;
 }
 
 .mdl-layout.is-small-screen .extract-article .previous-preview {

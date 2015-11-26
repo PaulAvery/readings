@@ -1,9 +1,14 @@
-/* Import the full material-design-lite css and decent article css */
-@import '../../node_modules/github-markdown-css/github-markdown';
+/* Import the full material-design-lite css */
 @import '../../node_modules/material-design-lite/material';
 
-@import 'css/resets';
-@import 'css/layout';
-@import 'css/extract';
-@import 'css/category';
-@import 'css/article-content';
+/* Import article css and apply only to the body */
+.article-body {
+	@import '../../node_modules/github-markdown-css/github-markdown';
+}
+
+/* Load remaining css */
+@import 'scss/resets';
+@import 'scss/layout';
+@import 'scss/extract';
+@import 'scss/category';
+@import 'scss/article-content';

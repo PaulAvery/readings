@@ -1,5 +1,7 @@
 import m from 'mithril';
 import {Grid, Cell} from 'mithril-mdl';
+import * as ArticleMd from './ArticleMd';
+import * as ArticleHtml from './ArticleHtml';
 import * as ArticleContent from './ArticleContent';
 
 export function controller({i, layout}) {
@@ -24,13 +26,13 @@ export function controller({i, layout}) {
 
 export function view(ctrl, {i}) {
 	if(!ctrl.article()) i.error(404);
-	let {author, tags, title, content} = ctrl.article();
+	let {author, tags, title, content, type} = ctrl.article();
 
 	return <Grid class="article">
 		<Cell width="2" notablet nophone />
 		<Cell width="8">
 			<ArticleContent crumbs={ctrl.crumbs()} author={author} tags={tags} title={title}>
-				{content}
+				{type === 'html' ? <ArticleHtml i={i}>{content}</ArticleHtml> : <ArticleMd>{content}</ArticleMd>}
 			</ArticleContent>
 		</Cell>
 	</Grid>;

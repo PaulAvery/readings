@@ -1,6 +1,7 @@
 import m from 'mithril';
 import {Fab, Grid, Cell, TextInput} from 'mithril-mdl';
 import * as ArticleContent from './ArticleContent';
+import * as ArticleHtml from './ArticleHtml';
 
 export function controller({i, layout}) {
 	this.url = m.prop(i.param('url'));
@@ -60,21 +61,19 @@ export function view(ctrl, {i}) {
 					value={ctrl.author()} />
 			</Cell>
 		</Grid>
-		{ctrl.extracts().map((extract, index) =>
-			<Grid class={`article extract-article ${ctrl.selected() === index ? '' : 'hidden'}`}>
-				<Cell width="2" notablet nophone />
-				<Cell width="8">
-					<ArticleContent crumbs={crumbs} author={{url: ctrl.url(), name: ctrl.author()}} tags={[]} title={ctrl.title()}>
-						<Fab class="previous-preview mdl-color--grey-300" onclick={ctrl.previous} disabled={ctrl.selected() <= 0} ripple>
-							&lt;
-						</Fab>
-						<Fab class="next-preview mdl-color--grey-300" onclick={ctrl.next} disabled={ctrl.selected() + 1 >= ctrl.extracts().length} ripple>
-							&gt;
-						</Fab>
-						{extract}
-					</ArticleContent>
-				</Cell>
-			</Grid>
-		)}
+		<Grid class="article extract-article">
+			<Cell width="2" notablet nophone />
+			<Cell width="8">
+				<ArticleContent crumbs={crumbs} author={{url: ctrl.url(), name: ctrl.author()}} tags={[]} title={ctrl.title()}>
+					<Fab class="previous-preview mdl-color--grey-300" onclick={ctrl.previous} disabled={ctrl.selected() <= 0} ripple>
+						&lt;
+					</Fab>
+					<Fab class="next-preview mdl-color--grey-300" onclick={ctrl.next} disabled={ctrl.selected() + 1 >= ctrl.extracts().length} ripple>
+						&gt;
+					</Fab>
+					<ArticleHtml i={i}>{ctrl.extracts()[ctrl.selected()]}</ArticleHtml>
+				</ArticleContent>
+			</Cell>
+		</Grid>
 	</div>;
 }

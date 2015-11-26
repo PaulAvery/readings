@@ -3,7 +3,7 @@ BIN = ./node_modules/.bin
 SRCJS = $(wildcard src/*.js) $(wildcard src/*/*.js) $(wildcard src/*/*/*.js)
 LIBJS = $(SRCJS:src/%.js=lib/%.js)
 
-SRCSASS = $(wildcard src/assets/css/*.scss)
+SRCSASS = $(wildcard src/assets/scss/*.scss)
 ENTRYSASS = src/assets/readings.scss
 
 SRCASSETS = $(wildcard src/assets/static/*)
